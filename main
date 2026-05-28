@@ -1,0 +1,166 @@
+import time,math,os
+
+def s(str="",speed=0.02):
+    for char in str:
+        if char == "/":
+            time.sleep(.5)
+        else:
+            print(char,end="",flush=True)
+            time.sleep(speed)
+        
+def breath():
+    print()
+    print("------------------------------------------------------------------------------")
+
+def gasp():
+    print()
+    print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
+
+def pant():
+    time.sleep(.2)
+    
+def clear():
+    os.system('cls')
+
+while True:
+    clear()
+    score = 0
+    s("hey! ")
+    pant()
+    s("how ya doin?")
+    breath()
+    s(">amazing!\n>pretty good\n>alright\n>not bad, not great\n>a bit down\n>crappy\n>i just want this day to be over\n>i want to die",0.01)
+    breath()
+    print()
+    input_1 = input(" >")
+    clear()
+    if "amazing" in input_1:
+        score += 3
+        s("oh,")
+        pant()
+        s(" that's great!")
+        break
+    elif "good" in input_1:
+        score += 2
+        s("i see,")
+        pant()
+        s(" that's good news")
+        break
+    elif "alright" in input_1:
+        score += 1
+        s("alright, nothing wrong with that")
+        pant()
+        pant()
+        pant()
+        s("see what i did there?")
+        break
+    elif "bad" in input_1:
+        s("middle of the road huh?")
+        pant()
+        s(" that's okay")
+        break
+    elif "down" in input_1:
+        score += -1
+        s("down?")
+        pant()
+        s(" that's unfortunate. well, maybe something can change later today.")
+        break
+    elif "just" in input_1:
+        score += -2
+        s("yeah, some days can be like that.")
+        pant()
+        s(" like you said, the day will be over soon.")
+        pant()
+        s(" im sure tommorow will be better, just get through the day, kay?")
+        break
+    elif "die" in input_1:
+        score += -3
+        s("well, that's no good.")
+        pant()
+        s(" it'll only be temporary.")
+        pant()
+        s("just finish the day, tommorow will be better. all you have to do is make it through the day, don't worry about anything else.")
+        pant()
+        s("be selfish for once, promise?")
+        print()
+        while True:
+            s("(y|n)")
+            print()
+            input_special = input(" >").lower()
+            if input_special == "y":
+                s("good, you got this.")
+                print()
+                break
+            elif input_special == "n":
+                s("cmon, don't be like that. let's try this again.")
+                pant()
+                pant()
+                print()
+            else:
+                s("i'm not sure what you've said, so let's try that again.")
+                pant()
+                pant()
+                print()
+            break
+    else:
+        s("it seems the input was not recognized/. let's try that again.")
+time.sleep(0.5)
+clear()
+s("okay!/ now let's get a bit more descriptive.")
+breath()
+while True:
+    clear()
+    s("have you gone outside today?")
+    gasp()
+    s(">yes\n>no")
+    gasp()
+    input_2 = input(" >").lower()
+    if "yes" in input_2:
+        while True:
+            print()
+            s("good!/ what'd you do? oh also for this one you can type in multiple answers. e.x: went to school and hung out with a friend")
+            breath()
+            s(" >went to school")
+            s(" >hung out with friend(s)")
+            s(" >went to work")
+            s(" >worked out")
+            s(" >went on a walk")
+            s(" >other")
+            breath()
+            input_3 = input("  >").lower()
+            breath()
+            if "school" in input_3:
+                score += .1
+                break
+            elif "school" in input_3:
+                score += .1
+                break
+            elif "friend" in input_3:
+                score += .4
+                break
+            elif "work" in input_3:
+                score += .2
+                break
+            elif "worked" in input_3:
+                score += .4
+                break
+            elif "walk" in input_3:
+                score += .3
+                break
+            elif "other" in input_3:
+                s("oh?/ okay then let's add a new one!")
+                breath()
+                s("now now,/ tell me what it was./ mind your grammar.")
+                input_add_outside = input("  >")
+                print()
+                s("alrighty/ and from 1-10 rate how good it was for you and your health both physically./ for reference the best thing in the given list earlier was both working out and hanging out with friend(s) both rated a 10.")
+                input_add_outside_new = int(input("   >"))
+                value = (input_add_outside_new - 1) / 9 * 0.4
+                print()
+                s("added!")
+                pant()
+            else:
+                s("input not recognized,/ re-do.")
+            input()
+        
+
