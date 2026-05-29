@@ -1,4 +1,5 @@
-import time,math,os
+import time,math,os, json
+from datetime import datetime
 
 def s(str="",speed=0.02):
     for char in str:
@@ -10,11 +11,11 @@ def s(str="",speed=0.02):
         
 def breath():
     print()
-    print("------------------------------------------------------------------------------")
+    print("-" * int(os.get_terminal_size().columns))
 
 def gasp():
     print()
-    print("- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -")
+    print("- " * int((os.get_terminal_size().columns)/2))
 
 def pant():
     time.sleep(.2)
@@ -23,6 +24,7 @@ def clear():
     os.system('cls')
 
 memory = []
+temp_memory = []
 
 while True:
     clear()
@@ -34,9 +36,17 @@ while True:
     s("<1>amazing!\n<2>pretty good\n<3>alright\n<4>not bad, not great\n<5>a bit down\n<6>i just want this day to be over\n<7>i want to die",0.01)
     breath()
     print()
-    input_1 = input(" >")
+    input_1 = input("=>")
     clear()
-    if "1" in input_1:
+    if "flush" in input_1:
+        s("oh!/ alright got it, gimme a sec.")
+        print()
+        with open("memory.json","w") as f:
+            json.dump({},f)
+        s("done!/ bye bye!/")
+        print()
+        os._exit(0)
+    elif "1" in input_1:
         score += 2
         s("oh,")
         pant()
@@ -87,7 +97,7 @@ while True:
         while True:
             s("(y|n)")
             print()
-            input_special = input(" >").lower()
+            input_special = input("=>").lower()
             if input_special == "y":
                 s("good, you got this.")
                 print()
@@ -109,33 +119,28 @@ time.sleep(0.5)
 clear()
 s("okay!/ now let's get a bit more descriptive.")
 time.sleep(.5)
-breath()
 while True:
         clear()
-        s("have you gone outside today?")
+        s("have you gone outside today? (y|n)")
         gasp()
-        s(">yes\n>no")
+        input_2 = input("=>").lower()
         gasp()
-        input_2 = input(" >").lower()
-        gasp()
-        if "yes" in input_2:
+        if "y" in input_2:
             memory.append("outside_yes")
             while True:
-                print()
                 s("good!/ what'd you do?")
                 breath()
-                s(" <1>went to school")
+                s(" <1>went to school",0.01)
                 print()
-                s(" <2>hung out with friend(s)")
+                s(" <2>hung out with friend(s)",0.01)
                 print()
-                s(" <3>went to work")
+                s(" <3>went to work",0.01)
                 print()
-                s(" <4>worked out")
+                s(" <4>worked out",0.01)
                 print()
-                s(" <5>went on a walk")
-                print()
+                s(" <5>went on a walk",0.01)
                 breath()
-                input_3 = input("  >").lower()
+                input_3 = input("==>").lower()
                 breath()
                 if "1" in input_3:
                     score += .1
@@ -158,15 +163,15 @@ while True:
             s("got it!")
             time.sleep(0.5)
             break
-        elif "no" in input_2:
+        elif "n" in input_2:
             memory.append("outside_no")
             s("i see./ that's unfortunate.//is there a reason?")
             print()
             breath()
             while True:
-                s(" <1>i'm sick\n <2>i'm on holiday of some sort\n <3>i'm taking a rest day\n <4>i've got important stuff to do for work or school\n <5>i had no motivation to")
+                s(" <1>i'm sick\n <2>i'm on holiday of some sort\n <3>i'm taking a rest day\n <4>i've got important stuff to do for work or school\n <5>i had no motivation to",0.01)
                 breath()
-                input_3 = input("  >").lower()
+                input_3 = input("==>").lower()
                 breath()
                 if "1" in input_3:
                     s("aw that sucks,/ okay well rest up.../ of course still finish the checkup.")
@@ -184,7 +189,7 @@ while True:
                     score -= .2
                     break
                 elif "5" in input_3:
-                    s("oh come on./ just for a few minutes.// listen/ just go outside for a few minutes, nothing crazy. it really does do wonders.")
+                    s("oh come on./ just for a few minutes./ nothing crazy.// it really does do wonders.")
                     score -= 1.5
                     break
                 else:
@@ -194,8 +199,7 @@ while True:
             break
         break
 clear()
-s("good./ now,/ did you work on anything today?/ (y|n)")
-time.sleep(.5)
+s("now,/ did you work on anything today? (y|n)")
 breath()
 while True:
     input_4 = input(">").lower()
@@ -215,13 +219,13 @@ while True:
     time.sleep(.5)
     print()
 print()
-s("hmm what else././. oh!/ how well have you drink, ate, and slept?")
+s("few more than we're done")
 print()
 pant()
 pant()
 while True:
     gasp()
-    s(">eaten [1-10] | ")
+    s(">eaten [1-10] | ",0.01)
     try:
         eaten_input = int(input(">"))
         eaten_input= eaten_input/10
@@ -230,16 +234,16 @@ while True:
     except TypeError:
         s("error, input only numbers please./")
     gasp()
-    s(">slept [1-10] | ")
+    s(">slept [1-10] | ",0.01)
     try:
         slept_input = int(input(">"))
         slept_input = slept_input/10
         score += slept_input
         memory.append(slept_input)
-    except TypeError:
+    except TypeError or ValueError:
         s("error, input only numbers please./")
     gasp()
-    s(">drink [1-10] | ")
+    s(">drink [1-10] | ",0.01)
     try:
         drink_input = int(input(">"))
         drink_input = drink_input/10
@@ -248,17 +252,9 @@ while True:
         break
     except TypeError:
         s("error, input only numbers please./")
-    gasp()
-pant()
-clear()
-s("okaaay./ last thing./ hygiene!")
-time.sleep(.5)
-print()
-pant()
-pant()
 while True:
     gasp()
-    s(">room cleanliness [1-10] | ")
+    s(">room cleanliness [1-10] | ",0.01)
     try:
         room_input = int(input(">"))
         room_input = room_input/10
@@ -267,29 +263,87 @@ while True:
     except TypeError:
         s("error, input only numbers please./")
     gasp()
-    s(">have you showered (y|n)").lower()
+    s(">have you showered (y|n) | ",0.01)
+    s("for reference you ")
+    showered = False
+    try:
+        with open("memory.json","r") as f:
+            temp_memory = json.load(f)
+        if "shower_yes" in temp_memory:
+            s("have showered yesterday.")
+            showered = True
+        elif "shower_yes" not in temp_memory:
+            s("have not showered yesterday.")
+            showered = False
+        else:
+            s("an unexpected error has occured.")
+    except FileNotFoundError:
+        s("//ah,/ you have no data.// nevermind.")
+    print()
     shower_input = input(">")
-    if "y" in shower_input:
-        s("alright good!")
+    if "y" in shower_input and showered == True:
+        s("alright good!/ being extra clean huh?")
         memory.append("shower_yes")
         score += .2
-    elif "n" in shower_input:
+        break
+    elif "n" in shower_input and showered == True:
+        s("well that's alright./")
+        memory.append("shower_no")
+        break
+    elif "n" in shower_input and showered == False:
         s("i see.../ you still have time no?/ do it now, get it out the way.")
         memory.append("shower_no")
         score -= .2
+        break
+    elif "y" in shower_input and showered == False:
+        s("good!/")
+        memory.append("shower_yes")
+        break
     gasp()
 pant()
 clear()
 s("alright,/ we're all done!")
 print()
 pant()
-s("time for me to do the hard part...")
-print()
+score = round(((score-(-6.4))/(10.9-(-6.4))) * 100)
 memory.append(score)
-s("okay so you got a score of ")
-s(score)
-s("%.")
+file_name = "memory.json"
+
+with open(file_name,"r") as file:
+    json.dump({},file)
+    
+today_string = datetime.now().strftime("%Y-%m-%d")
+
+if not os.path.exists(file_name) or os.path.getsize(file_name) == 0:
+    with open(file_name,"w") as file:
+        json.dump([],file)
+
+with open(file_name,"r") as file:
+    disk_data = json.load(file)
+
+with open(file_name,"r") as file:
+    json.dump({},file)
+
+disk_data[today_string] = memory
+
+with open(file_name, "w") as file:
+    json.dump(disk_data,file,indent=4)
+
+s("data successfully saved!")
 print()
+s("okay so you got a score of ")
+print(str(score) + "%")
 pant()
-s("alright, now would you could end the program now or you could stay and we'll go into analystics")
-time.sleep(.5)
+s("alright, now you could end the program now by saying 'end', or you could enter anything else to continue to analytics.")
+print()
+time.sleep(.2)
+input_end = input(">")
+if "end" in input_end:
+    print()
+    s("okay, bye bye!//")
+    print()
+    os._exit(0)
+else:
+    print()
+    s("alright/, to data stuff we go!/")
+input()
